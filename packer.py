@@ -264,8 +264,9 @@ class Packer(object):
         executed = subprocess.Popen(
             command, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         for line in executed.stdout:
-            text += line.decode()
-            print(line.decode().strip(), flush=True)
+            decoded_line = line.decode("utf-8", "ignore")
+            text += decoded_line
+            print(decoded_line.strip(), flush=True)
         packer_output = PackerOutput(text,
                                      executed.stderr.read(),
                                      executed.wait())
